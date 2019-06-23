@@ -1,0 +1,72 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: a87b8ccbf565e036ab27047285af1a2c426f9f064a19af20257cc5663c0c8e1c
+
+name:           loopbreaker
+version:        0.1.0.0
+synopsis:       inline self-recursive definitions
+description:    Please see the README file
+category:       Plugin
+homepage:       https://github.com/polysemy-research/loopbreaker#readme
+bug-reports:    https://github.com/polysemy-research/loopbreaker/issues
+author:         Matej Nižník,
+                Sandy Maguire
+maintainer:     matten@tuta.io
+copyright:      2019 Matej Nižník,
+                2019 Sandy Maguire
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/polysemy-research/loopbreaker
+
+library
+  exposed-modules:
+      Loopbreaker.Plugin
+  other-modules:
+      Loopbreaker.InlineRecCalls
+      Loopbreaker.Utils
+      Paths_loopbreaker
+  hs-source-dirs:
+      src
+  default-extensions: FlexibleContexts LambdaCase NamedFieldPuns OverloadedStrings ScopedTypeVariables TupleSections TypeFamilies UnicodeSyntax ViewPatterns
+  ghc-options: -Wall
+  build-depends:
+      base >=4.7 && <5
+    , containers >=0.6.0.1 && <0.7
+    , ghc >=8.6 && <8.7
+    , syb >=0.7.1 && <0.8
+    , transformers >=0.5.6.2 && <0.6
+  default-language: Haskell2010
+
+test-suite loopbreak-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      PluginSpec
+      Paths_loopbreaker
+  hs-source-dirs:
+      test
+  default-extensions: FlexibleContexts LambdaCase NamedFieldPuns OverloadedStrings ScopedTypeVariables TupleSections TypeFamilies UnicodeSyntax ViewPatterns
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N -fplugin=Loopbreaker.Plugin
+  build-tool-depends:
+      hspec-discover:hspec-discover
+  build-depends:
+      base >=4.7 && <5
+    , containers >=0.6.0.1 && <0.7
+    , ghc >=8.6 && <8.7
+    , hspec >=2.6.1 && <3
+    , inspection-testing >=0.4.2.1 && <0.5
+    , loopbreaker
+    , syb >=0.7.1 && <0.8
+    , transformers >=0.5.6.2 && <0.6
+  default-language: Haskell2010
